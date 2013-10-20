@@ -57,8 +57,6 @@ class Interpreter(prog: String)
 
   private def nextStatement(state: BFState) : BFState =
     new BFState(state.prog, state.cursor, state.jumpPoint, state.programCounter+1)
-  private def setNextStatement(state: BFState, pc: Int) : BFState =
-    new BFState(state.prog, state.cursor, state.jumpPoint, pc)
 
   private def executeStatement(state: BFState) : BFState =
     state.programCounter match {
