@@ -21,8 +21,12 @@ class Interpreter(prog: String)
     ']' -> ((st) => whileEnd(st))
   )
 
-  private def moveRight(state: BFState) : BFState = new BFState(state.prog, state.cursor+1, state.jumpPoint, state.programCounter+1)
-  private def moveLeft(state: BFState) : BFState = new BFState(state.prog, state.cursor-1, state.jumpPoint, state.programCounter+1)
+  private def moveRight(state: BFState) : BFState =
+    new BFState(state.prog, state.cursor+1, state.jumpPoint, state.programCounter+1)
+
+  private def moveLeft(state: BFState) : BFState =
+    new BFState(state.prog, state.cursor-1, state.jumpPoint, state.programCounter+1)
+
   private def increment(state: BFState) : BFState = {
     state.prog(state.cursor)=(state.prog(state.cursor).toByte + 1).toByte
     return nextStatement(state)
@@ -51,8 +55,10 @@ class Interpreter(prog: String)
       case _                => state.programCounter+1
     })
 
-  private def nextStatement(state: BFState) : BFState = new BFState(state.prog, state.cursor, state.jumpPoint, state.programCounter+1)
-  private def setNextStatement(state: BFState, pc: Int) : BFState = new BFState(state.prog, state.cursor, state.jumpPoint, pc)
+  private def nextStatement(state: BFState) : BFState =
+    new BFState(state.prog, state.cursor, state.jumpPoint, state.programCounter+1)
+  private def setNextStatement(state: BFState, pc: Int) : BFState =
+    new BFState(state.prog, state.cursor, state.jumpPoint, pc)
 
   private def executeStatement(state: BFState) : BFState =
     state.programCounter match {
@@ -70,6 +76,7 @@ class Interpreter(prog: String)
 object Interpreter
 {
   def main(args: Array[String]) {
-    new Interpreter("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.").execute
+    new Interpreter("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++." +
+                    "<<+++++++++++++++.>.+++.------.--------.>+.>.").execute
   }
 }
